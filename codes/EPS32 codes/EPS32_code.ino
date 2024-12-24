@@ -3,10 +3,10 @@
 #include <WiFiUdp.h>
 
 // Replace with the name of your WiFi network
-const char* ssid = "AndroidAP";
+const char* ssid = "********";
 
 // Replace with the password of your WiFi network
-const char* password = "kareemash";
+const char* password = "********";
 
 // Replace with the IP address of the ESP32
 const IPAddress ip(192, 168, 43, 57);
@@ -45,29 +45,29 @@ void setup() {
   ledcAttachPin(motorEnablePin1, pwmChannel1);
   ledcAttachPin(motorEnablePin2, pwmChannel2);
   ledcWrite(pwmChannel1, 50);
-  
-  
+
+
   // Connect to the WiFi network
   WiFi.begin(ssid, password);
-  
+
   while (WiFi.status() != WL_CONNECTED) {
     delay(1000);
     Serial.println("Connecting to WiFi...");
   }
-  
+
   Serial.println("Connected to WiFi");
-  
+
   // Set up the UDP socket
   udp.begin(port);
-  
+
   Serial.println("Listening for UDP packets...");
    mode=5;
 }
 
 void loop() {
- 
+
 int packetSize = udp.parsePacket();
-    
+
 
   if (packetSize) {
     Serial.println("packetSize" + String(packetSize));
@@ -99,10 +99,10 @@ int packetSize = udp.parsePacket();
     }
     packetString = packetString.substring(commaIndex + 1);
     mode = packetString.toInt();
-   
-    
+
+
   }
-    
+
     if (mode == 0) {
       digitalWrite(motorDir1Pin1, HIGH);
       digitalWrite(motorDir2Pin1, LOW);
@@ -160,5 +160,5 @@ int packetSize = udp.parsePacket();
       //ledcWrite(pwmChannel2, pwm2);
     //Serial.println(packetBuffer);
   }
-  
+
 
